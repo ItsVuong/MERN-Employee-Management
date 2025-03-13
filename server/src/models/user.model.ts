@@ -7,7 +7,13 @@ const UserSchema = new mongoose.Schema({
   address: { type: String },
   phone: { type: String },
   department: { type: String },
-  salary: { type: Number },
+  baseSalary: {
+    type: {
+      amount: { type: Number },
+      startDate: { type: Date },
+      endDate: { type: Date }
+    }
+  },
   startDate: { type: Date, default: Date.now() },
   profileImage: { type: String },
   email: { type: String, required: true, unique: true },
@@ -34,7 +40,5 @@ UserSchema.pre("findOneAndUpdate", async function(next) {
   (this as any)._update.password = hash;
   next();
 });
-
-
 
 export default mongoose.model("User", UserSchema, "Users");

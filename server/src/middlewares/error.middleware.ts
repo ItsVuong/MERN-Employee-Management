@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 
 export class CustomError extends Error {
   status: number;
+  errors?: any;
 
   constructor(message?: string, status?: number) {
     super(message);
@@ -12,10 +13,14 @@ export class CustomError extends Error {
 
 const handleError = (err: CustomError, req: Request, res: Response, next: NextFunction) => {
   console.log(err)
-  res.status(err?.status || 500).send({
+  const response:any = {
     status: err?.status || 500,
     message: err.message || "Something has gone wrong!"
-  });
+  };
+  if(err.errors){
+    response.errors = err.errors;
+  }
+  res.status(err?.status || 500).send(response);
 }
 
 export default handleError;

@@ -31,7 +31,7 @@ async function getUsers(req: Request, res: Response, next: NextFunction) {
         dob: user.dob,
         address: user.address,
         phone: user.phone,
-        salary: user.salary,
+        salary: user.baseSalary,
         email: user.email
       }
     });

@@ -1,5 +1,5 @@
+import { body, param } from "express-validator";
 import DepartmentController from "../controllers/department.controller";
-import UserController from "../controllers/user.controller";
 
 export const DepartmentRoute = [
   {
@@ -12,7 +12,9 @@ export const DepartmentRoute = [
     method:"post",
     route: "/department/create",
     controller: DepartmentController.createDepartment,
-    validation: []
+    validation: [
+      body("name").isString(),
+      body("description").isString(),
+    ]
   }
 ]
-

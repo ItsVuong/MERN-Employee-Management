@@ -1,26 +1,37 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
+import departmentModel from './department.model';
+import { UpdateUserDto } from '../dto/user.dto';
 
 const UserSchema = new mongoose.Schema({
   fullName: { type: String, required: true },
   dob: { type: Date },
+  gender: { type: String, enum: ["Male", "Female"] },
   address: { type: String },
   phone: { type: String },
-  department: { type: String },
+  department: { type: String, ref: departmentModel },
   baseSalary: {
     type: {
-      amount: { type: Number },
-      startDate: { type: Date },
+      amount: { type: Number, required: true },
+      startDate: { type: Date, required: true, default: Date.now() },
       endDate: { type: Date }
     }
   },
   startDate: { type: Date, default: Date.now() },
-  profileImage: { type: String },
+  profileImage: {
+    type: {
+      url: String,
+      //This field is actually used to store cloudinary file's public id
+      name: String
+    }
+  },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   role: { type: String, enum: ["Admin", "User"], default: "User" },
+  paidLeave: { type: Number, default: 12 }
 });
 
+//Hash password before create
 UserSchema.pre("save", async function(next) {
   console.log("middlware: ", this)
   if (!this.isModified("password")) {
@@ -32,12 +43,14 @@ UserSchema.pre("save", async function(next) {
   next();
 });
 
+//Hash password before update
 UserSchema.pre("findOneAndUpdate", async function(next) {
-  if (!(this as any)._update.password) {
+  const update = this.getUpdate() as { '$set': UpdateUserDto };
+  if (!update['$set']?.password) {
     return next();
   }
-  const hash = await bcrypt.hash((this as any)._update.password, 10);
-  (this as any)._update.password = hash;
+  const hash = await bcrypt.hash(update['$set'].password, 10);
+  this.setUpdate({ password: hash });
   next();
 });
 

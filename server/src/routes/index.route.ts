@@ -4,14 +4,15 @@ import { UserRoute } from "./user.route";
 import handleError, { CustomError } from "../middlewares/error.middleware";
 import { DepartmentRoute } from "./department.route";
 import { validationResult } from "express-validator";
-import { CustomValidation } from "express-validator/lib/context-items";
+import { AuthRoute } from "./auth.route";
 
 const router = express.Router();
 
 // An array of all routes
 const AllRoutes = [
   ...UserRoute,
-  ...DepartmentRoute
+  ...DepartmentRoute,
+  ...AuthRoute
 ];
 
 AllRoutes.forEach(

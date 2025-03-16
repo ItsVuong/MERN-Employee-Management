@@ -3,6 +3,7 @@ import { NextFunction, Request, Response } from "express";
 export class CustomError extends Error {
   status: number;
   errors?: any;
+  code?: string;
 
   constructor(message?: string, status?: number) {
     super(message);
@@ -17,6 +18,10 @@ const handleError = (err: CustomError, req: Request, res: Response, next: NextFu
     status: err?.status || 500,
     message: err.message || "Something has gone wrong!"
   };
+  // Handle the limit file size error from multer
+  if(err?.code === "LIMIT_FILE_SIZE")
+    response.status = 400;
+
   if(err.errors){
     response.errors = err.errors;
   }

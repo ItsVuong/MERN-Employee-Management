@@ -1,17 +1,18 @@
 import mongoose from 'mongoose';
 import userModel from './user.model';
-
-const month = [
-  "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"]
+import allowanceModel from './allowance.model';
 
 const PaycheckSchema = new mongoose.Schema({
   employee: { type: mongoose.SchemaTypes.ObjectId, ref: userModel },
-  month: { type: String, enum: month},
+  month: { type: Number, required: true, min: 1, max: 12 },
   year: { type: String },
   paymentDate: { type: Date },
   baseSalary: { type: Number },
-  totalAllowances: { type: Number, default: 0 },
+  allowances: [
+    {
+      type: mongoose.SchemaTypes.ObjectId, ref: allowanceModel
+    }
+  ],
   bonuses: {
     type: [{
       amount: { type: Number, default: 0 },
@@ -25,8 +26,9 @@ const PaycheckSchema = new mongoose.Schema({
     }]
   },
   netSalary: { type: Number, default: 0 },
-  paymentStatus: { type: String, enum: ["Paid", "Unpaid"] },
+  paymentStatus: { type: String, enum: ["Paid", "Unpaid"], default: "Unpaid" },
 });
 
-export default mongoose.model("Paycheck", PaycheckSchema, "Paychecks");
+PaycheckSchema.index({ month: 1, year: 1, employee: 1 }, { unique: true });
 
+export default mongoose.model("Paycheck", PaycheckSchema, "Paychecks");

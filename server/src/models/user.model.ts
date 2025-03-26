@@ -9,7 +9,7 @@ const UserSchema = new mongoose.Schema({
   gender: { type: String, enum: ["Male", "Female"] },
   address: { type: String },
   phone: { type: String },
-  department: { type: String, ref: departmentModel },
+  department: { type: mongoose.Schema.Types.ObjectId, ref: departmentModel },
   baseSalary: {
     type: {
       amount: { type: Number, required: true },
@@ -46,6 +46,12 @@ UserSchema.pre("save", async function(next) {
 //Hash password before update
 UserSchema.pre("findOneAndUpdate", async function(next) {
   const update = this.getUpdate() as { '$set': UpdateUserDto };
+  //Set start date for base salary if it is updated
+  if (update['$set']?.baseSalary?.amount) {
+    console.log("hello")
+    this.set({ baseSalary: { amount: update["$set"].baseSalary.amount, startDate: new Date() } });
+  }
+  //Hash password if password is updated
   if (!update['$set']?.password) {
     return next();
   }

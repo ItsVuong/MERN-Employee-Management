@@ -14,7 +14,7 @@ async function login(req: Request, res: Response, next: NextFunction) {
   if (!validatePassword) {
     return next(new CustomError("Fail to authenticate", 401));
   }
-  const token = jwt.sign({ userId: user._id, email: user.email },
+  const token = jwt.sign({ userId: user._id, email: user.email, role: user.role },
     process.env.ACCESS_TOKEN_SECRET || "");
   return res.json({ message: 'Login successful', token: token });
 }

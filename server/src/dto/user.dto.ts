@@ -9,6 +9,7 @@ export interface GetUserDto {
   minSalary?: string;
   maxSalary?: string;
   startDate?: string;
+  pageSize?: number, currentPage?: number
 }
 
 export interface UpdateUserDto {
@@ -22,11 +23,11 @@ export interface UpdateUserDto {
   dob?: Date;
   password?: string;
   startDate?: Date;
-  baseSalary?: number;
-  profileImage?: {url: string, name: string},
+  baseSalary?: { amount: number, startDate: Date, endDate: Date };
+  profileImage?: { url: string, name: string },
 }
 
-export interface UpdatePasswordDto{
+export interface UpdatePasswordDto {
   id: string;
   oldPassword: string;
   newPassword: string;

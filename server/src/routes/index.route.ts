@@ -5,6 +5,10 @@ import handleError, { CustomError } from "../middlewares/error.middleware";
 import { DepartmentRoute } from "./department.route";
 import { validationResult } from "express-validator";
 import { AuthRoute } from "./auth.route";
+import { AttendanceRoute } from "./attendance.route";
+import { HolidayRoute } from "./holiday.route";
+import AllowanceRoute from "./allowance.route";
+import PaycheckRoute from "./paycheck.route";
 
 const router = express.Router();
 
@@ -12,7 +16,11 @@ const router = express.Router();
 const AllRoutes = [
   ...UserRoute,
   ...DepartmentRoute,
-  ...AuthRoute
+  ...AuthRoute,
+  ...AttendanceRoute,
+  ...HolidayRoute,
+  ...AllowanceRoute,
+  ...PaycheckRoute
 ];
 
 AllRoutes.forEach(

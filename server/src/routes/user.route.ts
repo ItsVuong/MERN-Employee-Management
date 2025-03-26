@@ -1,8 +1,7 @@
-import { body, param } from "express-validator";
+import { body, param, query } from "express-validator";
 import UserController from "../controllers/user.controller";
 import { isEmailUnique, existDepartment } from "../utils/validator";
 import authenticate from "../middlewares/auth.middleware";
-import multer from "multer";
 import multerUpload from "../config/multer.config";
 
 export const UserRoute = [
@@ -11,7 +10,19 @@ export const UserRoute = [
     route: "/user",
     controller: UserController.getUsers,
     validation: [
-      authenticate(['User']),
+      authenticate(['Admin']),
+      query("pageSize").optional().isInt({ min: 1 })
+        .withMessage("Page size should be a number larger than 0"),
+      query("currentPage").optional().isInt({ min: 1 })
+        .withMessage("Current page should be a number larger than 0"),
+    ]
+  },
+  {
+    method: "get",
+    route: "/user/:id",
+    controller: UserController.getUserById,
+    validation: [
+      param("id").isMongoId().withMessage("Invalid user id")
     ]
   },
   {
@@ -19,6 +30,8 @@ export const UserRoute = [
     route: "/user/create",
     controller: UserController.createUser,
     validation: [
+      authenticate(["Admin"]),
+      multerUpload.single('image'),
       body('fullName').isString().notEmpty(),
       body('gender').optional().isString().isIn(['Male', 'Female'])
         .withMessage('Gender must be either Male or Female'),
@@ -40,18 +53,19 @@ export const UserRoute = [
     route: "/user/:id",
     controller: UserController.updateUser,
     validation: [
-      body('fullName').isString().notEmpty(),
+      multerUpload.single('image'),
+      body('fullName').isString().optional(),
       body('gender').optional().isString().isIn(['Male', 'Female'])
         .withMessage('Gender must be either Male or Female'),
-      body('address').isString().notEmpty(),
-      body('phone').isString().isLength({ min: 10, max: 11 }),
+      body('address').isString().optional(),
+      body('phone').optional().isString().isLength({ min: 10, max: 11 }),
       body('department').optional().custom(existDepartment),
       body('startDate').optional().isDate(),
       body('dob').optional().isDate(),
-      body('password').notEmpty().isString()
+      body('password').optional().isString()
         .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/),
       body('role').optional().isString(),
-      body('baseSalary').optional().isInt({ min: 0 })
+      body('baseSalary.amount').optional().isInt({ min: 0 })
         .withMessage("Base salary must be higher than 0")
     ]
   },
@@ -65,11 +79,11 @@ export const UserRoute = [
     ]
   },
   {
-    method: "post",
-    route: "/user/upload-avatar/",
-    controller: UserController.uploadProfilePic,
+    method: "delete",
+    route: "/user/:userId",
+    controller: UserController.deleteUser,
     validation: [
-      multerUpload.single('image')
+      param("userId").isMongoId()
     ]
   }
 ]

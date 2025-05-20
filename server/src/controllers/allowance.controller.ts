@@ -3,9 +3,9 @@ import allowanceModel from "../models/allowance.model";
 
 const createAllowance = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { type, amount } = req.body;
+    const { employeeId, type, amount } = req.body;
     const newAllowance = new allowanceModel({
-      type, amount
+      employeeId, type, amount
     });
     const savedAllowance = await newAllowance.save();
     res.json(savedAllowance);

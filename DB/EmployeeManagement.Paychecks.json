@@ -1,0 +1,47 @@
+[{
+  "_id": {
+    "$oid": "67dadd5ab96b9b6fb300b3ef"
+  },
+  "employee": {
+    "$oid": "67d7f82c418e5e1b2cfeaecc"
+  },
+  "month": 2,
+  "year": "2025",
+  "baseSalary": 1100000,
+  "netSalary": 1300250,
+  "paymentStatus": "Unpaid",
+  "bonuses": [
+    {
+      "amount": 100,
+      "reason": "Good work",
+      "_id": {
+        "$oid": "67dae9a8a408f4990401fae7"
+      }
+    },
+    {
+      "amount": 200,
+      "reason": "Good work",
+      "_id": {
+        "$oid": "67dae9a8a408f4990401fae8"
+      }
+    }
+  ],
+  "deductions": [
+    {
+      "amount": 50,
+      "reason": "bad job",
+      "_id": {
+        "$oid": "67dae9a8a408f4990401fae6"
+      }
+    }
+  ],
+  "__v": 0,
+  "allowances": [
+    {
+      "$oid": "67dad354be6676eb8c23ef4d"
+    },
+    {
+      "$oid": "67dad37cbe6676eb8c23ef54"
+    }
+  ]
+}]

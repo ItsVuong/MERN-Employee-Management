@@ -1,0 +1,30 @@
+[{
+  "_id": {
+    "$oid": "67dad354be6676eb8c23ef4d"
+  },
+  "type": "Housing allowance",
+  "amount": 100000,
+  "isActive": true,
+  "createdAt": {
+    "$date": "2025-03-19T14:23:16.402Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-19T14:23:16.402Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67dad37cbe6676eb8c23ef54"
+  },
+  "type": "Transport allowance",
+  "amount": 100000,
+  "isActive": true,
+  "createdAt": {
+    "$date": "2025-03-19T14:23:56.949Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-19T14:23:56.949Z"
+  },
+  "__v": 0
+}]

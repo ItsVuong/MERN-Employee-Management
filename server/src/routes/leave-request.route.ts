@@ -1,4 +1,4 @@
-import { body } from "express-validator";
+import { body, param } from "express-validator";
 import LeaveRequestController from "../controllers/leave-request.controller";
 import authenticate from "../middlewares/auth.middleware";
 
@@ -11,6 +11,15 @@ export const LeaveRequestRoute = [
       authenticate(),
       body("date").isDate(),
       body("reason").isString(),
+    ]
+  },
+  {
+    method: "get",
+    route: "/leave-request/:userId",
+    controller: LeaveRequestController.getRequestByUser,
+    validation: [
+      authenticate(),
+      param("userId").isMongoId()
     ]
   },
   {

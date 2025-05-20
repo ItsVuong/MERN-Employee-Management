@@ -9,6 +9,9 @@ import { AttendanceRoute } from "./attendance.route";
 import { HolidayRoute } from "./holiday.route";
 import AllowanceRoute from "./allowance.route";
 import PaycheckRoute from "./paycheck.route";
+import { LeaveRequestRoute } from "./leave-request.route";
+import BonusRoute from "./bonus.route";
+import DeductionRoute from "./deduction.route";
 
 const router = express.Router();
 
@@ -20,7 +23,10 @@ const AllRoutes = [
   ...AttendanceRoute,
   ...HolidayRoute,
   ...AllowanceRoute,
-  ...PaycheckRoute
+  ...PaycheckRoute,
+  ...LeaveRequestRoute,
+  ...BonusRoute,
+  ...DeductionRoute
 ];
 
 AllRoutes.forEach(

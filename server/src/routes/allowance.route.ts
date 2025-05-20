@@ -17,7 +17,7 @@ const AllowanceRoute = [
     controller: AllowanceController.createAllowance,
     validation: [
       authenticate(["Admin"]),
-      body("employee").isMongoId().withMessage("Employee id is invalid!"),
+      body("employeeId").isMongoId().withMessage("Employee id is invalid!"),
       body("type").isString().withMessage("Invalid type!"),
       body("amount").isInt({min: 0}).withMessage("Invalid amount!"),
     ]

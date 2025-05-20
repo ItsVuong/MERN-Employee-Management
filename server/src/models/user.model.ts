@@ -14,7 +14,6 @@ const UserSchema = new mongoose.Schema({
     type: {
       amount: { type: Number, required: true },
       startDate: { type: Date, required: true, default: Date.now() },
-      endDate: { type: Date }
     }
   },
   startDate: { type: Date, default: Date.now() },

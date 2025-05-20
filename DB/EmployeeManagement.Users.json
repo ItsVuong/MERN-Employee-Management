@@ -1,0 +1,128 @@
+[{
+  "_id": {
+    "$oid": "67d7f82c418e5e1b2cfeaecc"
+  },
+  "fullName": "Nguyen Van Admin123",
+  "dob": {
+    "$date": "2024-03-12T00:00:00.000Z"
+  },
+  "gender": "Male",
+  "address": "Hanoi123",
+  "phone": "1234567890",
+  "department": {
+    "$oid": "67d26938fbd719b04f1247d8"
+  },
+  "baseSalary": {
+    "amount": 1100000,
+    "startDate": {
+      "$date": "2025-03-19T11:40:10.175Z"
+    },
+    "_id": {
+      "$oid": "67daad1af773b14fab27b822"
+    }
+  },
+  "startDate": {
+    "$date": "2025-03-17T10:21:45.694Z"
+  },
+  "email": "adminC2@gmail.com",
+  "password": "$2b$10$wLstOtNQRC5Q017TciD9C.RnwKfreD6Ec5qC2gjP.vPs4PLwQ0Fh6",
+  "role": "User",
+  "paidLeave": 12,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d8070cbc86f45b5fe6c395"
+  },
+  "fullName": "Le Thanh A",
+  "dob": {
+    "$date": "2024-03-12T00:00:00.000Z"
+  },
+  "gender": "Male",
+  "address": "Hanoi",
+  "phone": "09182736",
+  "department": {
+    "$oid": "67d17510b00a29ed3ff517d6"
+  },
+  "baseSalary": {
+    "amount": 99999,
+    "startDate": {
+      "$date": "2025-03-17T11:26:09.729Z"
+    },
+    "_id": {
+      "$oid": "67d8070cbc86f45b5fe6c396"
+    }
+  },
+  "startDate": {
+    "$date": "2025-03-17T11:26:09.729Z"
+  },
+  "email": "admin@gmail.com",
+  "password": "$2b$10$tdkTAqbaA8tf7bE1Wt83/.OGH/aDTbrIMSnCpLo8JNR4jUe2dd4Ay",
+  "role": "User",
+  "paidLeave": 12,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d8070fbc86f45b5fe6c39a"
+  },
+  "fullName": "Nguyen N",
+  "dob": {
+    "$date": "2024-03-12T00:00:00.000Z"
+  },
+  "gender": "Female",
+  "address": "Hanoi",
+  "phone": "1234567890",
+  "department": {
+    "$oid": "67d26938fbd719b04f1247d8"
+  },
+  "baseSalary": {
+    "amount": 100000,
+    "startDate": {
+      "$date": "2025-03-17T11:26:09.729Z"
+    },
+    "_id": {
+      "$oid": "67d8070fbc86f45b5fe6c39b"
+    }
+  },
+  "startDate": {
+    "$date": "2025-03-17T11:26:09.729Z"
+  },
+  "email": "admin1@gmail.com",
+  "password": "$2b$10$UpSZ8AG.OPTwgKp5D7GXmeSE9mFLvhGOpV5RHzCseO9W5HH4E2dtq",
+  "role": "Admin",
+  "paidLeave": 12,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67daadacf773b14fab27b828"
+  },
+  "fullName": "Tran Van C",
+  "dob": {
+    "$date": "2024-03-12T00:00:00.000Z"
+  },
+  "gender": "Male",
+  "address": "Hanoi",
+  "phone": "1234567890",
+  "department": {
+    "$oid": "67d26938fbd719b04f1247d8"
+  },
+  "baseSalary": {
+    "amount": 100000,
+    "startDate": {
+      "$date": "2025-03-19T11:35:29.103Z"
+    },
+    "_id": {
+      "$oid": "67daadacf773b14fab27b829"
+    }
+  },
+  "startDate": {
+    "$date": "2025-03-19T11:35:29.103Z"
+  },
+  "email": "admin10@gmail.com",
+  "password": "$2b$10$vcFkpTevMyz.rXWbcXCUzOO4vq0jHHq3ZaXVPZwu5C2py/vwRr6GW",
+  "role": "Admin",
+  "paidLeave": 12,
+  "__v": 0
+}]

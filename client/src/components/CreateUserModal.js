@@ -19,7 +19,7 @@ const CreateUserModal = ({ isVisible, setIsVisible, notification, setReload }) =
       const response = await fetch("http://localhost:9999/api/department");
       if (!response.ok) throw new Error("Failed to fetch departments");
       const data = await response.json();
-      setDepartments(data);
+      setDepartments(data.departments);
     } catch (error) {
       console.error("Error fetching departments:", error);
     }
@@ -37,6 +37,7 @@ const CreateUserModal = ({ isVisible, setIsVisible, notification, setReload }) =
       const formattedData = {
         ...values,
         dob: values.dob ? values.dob.format("YYYY-MM-DD") : null,
+        startDate: values.startDate ? values.startDate.format("YYYY-MM-DD") : null,
         salary: parseFloat(values.salary), // Ensure salary is a number
       };
 
@@ -137,11 +138,16 @@ const CreateUserModal = ({ isVisible, setIsVisible, notification, setReload }) =
             ))}
           </Select>
         </Form.Item>
-        <Form.Item name="role" label="Role">
-          <Select defaultValue={"User"}>
+        <Form.Item name="role" label="Role" initialValue="User">
+          <Select>
             <Select.Option value="Admin">Admin</Select.Option>
             <Select.Option value="User">User</Select.Option>
           </Select>
+        </Form.Item>
+        <Form.Item name="startDate" label="Start working on"
+          rules={[{ required: true, message: "Start date is required" }]}
+        >
+          <DatePicker format="YYYY-MM-DD" />
         </Form.Item>
       </Form>
     </Modal>

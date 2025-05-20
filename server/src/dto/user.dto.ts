@@ -23,7 +23,7 @@ export interface UpdateUserDto {
   dob?: Date;
   password?: string;
   startDate?: Date;
-  baseSalary?: { amount: number, startDate: Date, endDate: Date };
+  baseSalary?: { amount: number, startDate?: Date, endDate?: Date };
   profileImage?: { url: string, name: string },
 }
 

@@ -1,10 +1,11 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { Button, Calendar, Card, Badge, Image, Col, Row, Modal, Form } from "antd";
+import { Button, Calendar, Card, Badge, Image, Col, Row, Modal, Form, Tabs } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import UserEditModal from "../components/UserEditModal";
 import { toast, ToastContainer } from "react-toastify";
+import UserAttendance from "../components/UserAttendance";
 
 const UserDetailPage = () => {
   //User Info
@@ -130,6 +131,7 @@ const UserDetailPage = () => {
       formData.append("address", values.address);
       formData.append("department", values.department);
       formData.append("baseSalary", values.salary);
+      formData.append("role", values.role);
 
       // Append the image file if uploaded
       if (fileList.length > 0) {
@@ -240,6 +242,7 @@ const UserDetailPage = () => {
                 <p><strong>Department:</strong> {user?.department?.name}</p>
                 <p><strong>Role:</strong> {user.role}</p>
                 <p><strong>Date started:</strong> {dayjs(user.startDate).format("DD/MM/YYYY")}</p>
+                <p><strong>Current salary:</strong> {user.salary.amount.toLocaleString()}</p>
               </Col>
 
               {/* Column 3: Avatar */}
@@ -253,8 +256,18 @@ const UserDetailPage = () => {
               </Col>
             </Row>
           </Card>
-          <Card title="Attendance Calendar">
-            <Calendar dateCellRender={dateCellRender} />
+          <Card>
+            <Tabs defaultActiveKey="1">
+              <Tabs.TabPane tab="Attendance Calendar" key="1">
+                <UserAttendance userId = {userId}/>
+              </Tabs.TabPane>
+              <Tabs.TabPane tab="Bonuses" key="2">
+                <p>Summary of attendance records goes here...</p>
+              </Tabs.TabPane>
+              <Tabs.TabPane tab="Deductions" key="3">
+                <p>Reports and analytics will be displayed here...</p>
+              </Tabs.TabPane>
+            </Tabs>
           </Card>
         </>
       ) : (

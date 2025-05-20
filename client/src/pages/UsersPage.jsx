@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Table, Input, Select, Button, Form, DatePicker } from "antd";
 import { useNavigate } from "react-router-dom";
-import '../styles/UsersPage.css'
+import '../styles/GlobalStyle.css'
 import { useSelector } from "react-redux";
 import { EditOutlined } from "@ant-design/icons";
 import CreateUserModal from "../components/CreateUserModal";
@@ -30,7 +30,7 @@ const UsersPage = () => {
     role: "",
     minSalary: "",
     maxSalary: "",
-    pageSize: 2,
+    pageSize: 10,
     startDate: "",
     currentPage: 1,
   });
@@ -42,7 +42,7 @@ const UsersPage = () => {
       const response = await fetch("http://localhost:9999/api/department");
       if (!response.ok) throw new Error("Failed to fetch departments");
       const data = await response.json();
-      setDepartments(data);
+      setDepartments(data.departments);
     } catch (error) {
       console.error("Error fetching departments:", error);
     }
@@ -82,7 +82,7 @@ const UsersPage = () => {
   useEffect(() => {
     fetchDepartments();
     fetchUsers();
-  }, [reload]);
+  }, [reload, filters]);
 
   const handleFilterChange = (changedValues) => {
     setFilters((prev) => ({ ...prev, ...changedValues }));
@@ -110,7 +110,7 @@ const UsersPage = () => {
       }}>
         <h2 style={{ fontWeight: "bold" }}>Users</h2>
         <Button style={{ backgroundColor: "#52c41a", color: "white" }} icon={<EditOutlined />}
-          onClick={() => {setCreateUserModal(true)}}
+          onClick={() => { setCreateUserModal(true) }}
         >
           Add user
         </Button>
@@ -156,9 +156,11 @@ const UsersPage = () => {
           />
         </Form.Item>
 
+        {/*
         <Form.Item style={{ margin: '0 8px' }}>
           <Button type="primary" onClick={() => fetchUsers(filters)}>Search</Button>
         </Form.Item>
+        */}
       </Form>
       <Table
         columns={columns}
@@ -182,11 +184,11 @@ const UsersPage = () => {
         })}
         rowClassName="table-row"
       />
-      <CreateUserModal 
+      <CreateUserModal
         notification={noti}
-        setReload= {setReload}
+        setReload={setReload}
         isVisible={createUserModal} setIsVisible={setCreateUserModal} />
-      <ToastContainer/>
+      <ToastContainer />
     </div>
   );
 };

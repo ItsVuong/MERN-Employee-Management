@@ -3,6 +3,8 @@ import paycheckModel from "../models/paycheck.model";
 import userModel from "../models/user.model";
 import { CustomError } from "../middlewares/error.middleware";
 import allowanceModel from "../models/allowance.model";
+import bonusModel from "../models/bonus.model";
+import deductionModel from "../models/deduction.model";
 
 const createPaycheck = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -18,11 +20,40 @@ const createPaycheck = async (req: Request, res: Response, next: NextFunction) =
     if (startYear > year || (startYear == year && startMonth > month)) {
       throw new CustomError("Invalid time", 400)
     }
+
+    const bonuses = await bonusModel.find({ employeeId: employee, applyToMonth: month, applyToYear: year });
+    let totalBonuses = 0;
+    const bonusIds = bonuses.map(b => {
+      totalBonuses += b.amount;
+      return (b._id)
+    })
+
+
+    const deductions = await deductionModel.find({ employeeId: employee, applyToMonth: month, applyToYear: year });
+    let totalDeduction = 0;
+    const deductionIds = deductions.map(b => {
+      console.log(b.amount)
+      totalDeduction += Number(b.amount);
+      return (b._id)
+    })
+
+    const allowances = await allowanceModel.find({ employeeId: employee, isActive: true });
+    let totalAllowance = 0;
+    const allowanceIds = allowances.map(b => {
+      totalAllowance += b.amount;
+      return (b._id)
+    })
+
+    const totalSalary = savedEmployee.baseSalary.amount + totalAllowance - totalDeduction + totalBonuses;
+    console.log(totalSalary, savedEmployee.baseSalary.amount, totalAllowance, totalDeduction, totalBonuses);
     const newPaycheck = new paycheckModel({
-      employee, month, year, baseSalary: savedEmployee.baseSalary?.amount
+      employee, month, year, baseSalary: savedEmployee.baseSalary?.amount, bonuses: bonusIds, deductions: deductionIds, allowances: allowanceIds, netSalary: totalSalary
     });
+
     const savedPaycheck = await newPaycheck.save();
-    return res.json(savedPaycheck);
+    const populatedPaycheck = await paycheckModel.findById(savedPaycheck._id)
+      .populate("allowances deductions bonuses");
+    return res.json(populatedPaycheck);
   } catch (error) {
     next(error)
   }

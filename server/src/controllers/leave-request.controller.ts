@@ -5,8 +5,9 @@ import { CreateLeaveReqDto } from "../dto/leave-request.dto";
 import mongoose from "mongoose";
 
 const getRequestByUser = async (req: Request, res: Response, next: NextFunction) => {
-  const {userId} = req.body;
-  const requests = await leaveRequestModel.find({employee: userId});
+  const { userId } = req.body;
+  const requests = await leaveRequestModel.find({ employee: userId });
+  res.json(requests);
 }
 const createRequest = async (req: CreateLeaveReqDto, res: Response, next: NextFunction) => {
   try {
@@ -55,6 +56,7 @@ const updateRequest = async (req: Request, res: Response, next: NextFunction) =>
 
 const LeaveRequestController = {
   createRequest,
-  updateRequest
+  updateRequest,
+  getRequestByUser
 }
 export default LeaveRequestController

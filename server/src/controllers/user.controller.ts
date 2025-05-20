@@ -10,6 +10,7 @@ async function createUser(req: Request, res: Response, next: NextFunction) {
   try {
     const { fullName, dob, address, phone, email, password,
       department, gender, baseSalary, startDate, role } = req.body;
+    console.log(role)
 
     //Upload file to cloudinary 
     const result = await FileUtil.uploadFile(req.file.path);
@@ -145,6 +146,7 @@ const getUserById = async (req: Request, res: Response, next: NextFunction) => {
 
 const updateUser = async (req: Request<{ id: string }, {}, UpdateUserDto>, res: Response) => {
   try {
+    console.log(req.body)
     const { id } = req.params;
     const { password, ...updateData } = req.body; // Fields to update
     // Remove undefined fields from updateData
@@ -171,6 +173,11 @@ const updateUser = async (req: Request<{ id: string }, {}, UpdateUserDto>, res: 
       //Put the new Image in the update data
       if (result)
         filteredUpdate.profileImage = { url: result.url, name: result.public_id }
+    }
+    if (updateData.baseSalary) {
+      filteredUpdate.baseSalary = {
+        amount: Number(updateData.baseSalary), // Correct conversion
+      };
     }
 
     // Update the user with the provided fields

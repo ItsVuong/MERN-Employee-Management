@@ -1,0 +1,16 @@
+[{
+  "_id": {
+    "$oid": "67d17510b00a29ed3ff517d6"
+  },
+  "name": "IT101",
+  "description": "Informational Technology",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d26938fbd719b04f1247d8"
+  },
+  "name": "ECON123",
+  "description": "Economic fundamental",
+  "__v": 0
+}]

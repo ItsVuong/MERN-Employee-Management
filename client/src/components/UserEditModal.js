@@ -17,7 +17,7 @@ const UserEditModal = ({ isModalVisible, handleCancel, handleSave, form }) => {
       if (!response.ok) throw new Error("Failed to fetch departments");
       const data = await response.json();
       console.log(data)
-      setDepartments(data);
+      setDepartments(data.departments);
     } catch (error) {
       console.error("Error fetching departments:", error);
     }

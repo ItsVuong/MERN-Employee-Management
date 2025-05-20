@@ -9,6 +9,7 @@ import UsersPage from './pages/UsersPage';
 import UserDetailPage from './pages/UserDetail';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from './redux/authSlice';
+import DepartmentsPage from './pages/DepartmentsPage';
 
 const Dashboard = () => <h2>Welcome to the Dashboard</h2>;
 
@@ -22,16 +23,15 @@ const SidebarLayout = ({ children, onLogout }) => (
         <Menu.Item key="2" icon={""} >
           <Link to="/employees">Employees</Link>
         </Menu.Item>
-        <Menu.Item key="2" icon={""} >
+        <Menu.Item key="3" icon={""} >
           <Link to="/departments">Department</Link>
         </Menu.Item>
-        <Menu.Item key="3" icon={""} onClick={onLogout}>
+        <Menu.Item key="4" icon={""} onClick={onLogout}>
           Logout
         </Menu.Item>
       </Menu>
     </Sider>
     <Layout>
-      <Header style={{ background: "#fff", padding: 0 }} />
       <Content style={{ margin: "16px" }}>{children}</Content>
     </Layout>
   </Layout>
@@ -63,6 +63,7 @@ const App = () => {
         <Route path="/employees" element={isAuthenticated ? <SidebarLayout onLogout={handleLogout}><UsersPage /></SidebarLayout> : <Navigate to="/" />} />
         <Route path="/employees/:userId" element={isAuthenticated ? <SidebarLayout onLogout={handleLogout}><UserDetailPage /></SidebarLayout> : <Navigate to="/" />} />
         <Route path="/dashboard" element={isAuthenticated ? <SidebarLayout onLogout={handleLogout}><Dashboard /></SidebarLayout> : <Navigate to="/" />} />
+        <Route path="/departments" element={isAuthenticated ? <SidebarLayout onLogout={handleLogout}><DepartmentsPage /></SidebarLayout> : <Navigate to="/" />} />
       </Routes>
     </Router>
   );

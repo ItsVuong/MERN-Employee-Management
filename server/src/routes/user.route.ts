@@ -64,7 +64,7 @@ export const UserRoute = [
       body('dob').optional().isDate(),
       body('password').optional().isString()
         .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/),
-      body('role').optional().isString(),
+      body('role').notEmpty().isString().isIn(['User', 'Admin']),
       body('baseSalary.amount').optional().isInt({ min: 0 })
         .withMessage("Base salary must be higher than 0")
     ]
